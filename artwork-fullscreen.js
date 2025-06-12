@@ -3,25 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.artwork').forEach(artwork => {
         const video = artwork.querySelector('video');
         const img = artwork.querySelector('img');
-        // Detect gif by extension
+
         if (video) {
-            // Add play overlay if not already present
             if (!artwork.querySelector('.play-overlay')) {
                 const overlay = document.createElement('div');
                 overlay.className = 'play-overlay';
                 overlay.innerHTML = `<svg viewBox="0 0 60 60"><polygon points="20,15 50,30 20,45" /></svg>`;
                 artwork.appendChild(overlay);
             }
-        }
-        // Prevent grid videos from being interactive
-        if (video) {
+
             video.removeAttribute('controls');
             video.pause();
             video.currentTime = 0;
         }
     });
 
-    // Create overlay element
+    // Create overlay
     const overlay = document.createElement('div');
     overlay.style.position = 'fixed';
     overlay.style.top = 0;
@@ -38,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.style.opacity = 0;
     overlay.style.transition = 'opacity 0.2s';
 
-    // Fullscreen elements
     const fullImg = document.createElement('img');
     fullImg.style.maxWidth = '90vw';
     fullImg.style.maxHeight = '90vh';
@@ -55,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     overlay.appendChild(fullImg);
     overlay.appendChild(fullVideo);
-
     document.body.appendChild(overlay);
 
-    // Show overlay with image
     function showFullscreenImg(src, alt) {
         fullImg.src = src;
         fullImg.alt = alt || '';
@@ -69,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     }
 
-    // Show overlay with video/gif
     function showFullscreenVideo(src, isGif) {
         fullImg.style.display = 'none';
         fullVideo.style.display = '';
@@ -80,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.style.visibility = 'visible';
         overlay.style.opacity = 1;
         document.body.style.overflow = 'hidden';
+
         if (isGif) {
-            // For gifs, use <img> instead of <video>
             fullVideo.style.display = 'none';
             fullImg.style.display = '';
             fullImg.src = src;
@@ -91,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Hide overlay
     function hideFullscreen() {
         overlay.style.opacity = 0;
         setTimeout(() => {
@@ -103,26 +95,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
     }
 
-    // Click on .artwork to show fullscreen
     document.body.addEventListener('click', (e) => {
         const artwork = e.target.closest('.artwork');
         if (!artwork) return;
 
         const video = artwork.querySelector('video');
         const img = artwork.querySelector('img');
+
         if (video) {
             showFullscreenVideo(video.src, false);
         } else if (img && img.src.match(/\.gif($|\?)/i)) {
             showFullscreenVideo(img.src, true);
         } else if (img) {
-            showFullscreenImg(img.src, img.alt);
+            // Replace "-thumbnail" before extension with empty string
+            const fullSrc = img.src.replace(/-thumbnail(?=\.\w+$)/, '');
+            showFullscreenImg(fullSrc, img.alt);
         }
     });
 
-    // Click overlay to close
     overlay.addEventListener('click', hideFullscreen);
 
-    // Escape key to close
     document.addEventListener('keydown', (e) => {
         if (overlay.style.visibility === 'visible' && e.key === 'Escape') {
             hideFullscreen();

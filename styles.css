@@ -10,9 +10,7 @@ body {
     background-size: 100vw;
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.8);
-    /* Add dark overlay */
     background-blend-mode: darken;
-    /* Blend overlay with image */
 }
 
 header {
@@ -49,19 +47,6 @@ h1 {
     align-items: center;
 }
 
-/* Remove flexbox responsive rules for .artworks-grid */
-@media (max-width: 900px) {
-    /* .artworks-grid:has(> .artwork:nth-last-child(-n+2)) {
-        justify-content: flex-start;
-    } */
-}
-
-@media (max-width: 600px) {
-    /* .artworks-grid:has(> .artwork:nth-last-child(-n+1)) {
-        justify-content: flex-start;
-    } */
-}
-
 .artwork {
     width: 180px;
     height: 180px;
@@ -70,7 +55,6 @@ h1 {
     justify-content: center;
     position: relative;
     cursor: pointer;
-    /* Placeholder styling, replace with image/content as needed */
 }
 
 .artwork img,
@@ -80,7 +64,6 @@ h1 {
     filter: drop-shadow(0 10px 6px rgba(0, 0, 0, 0.9));
 }
 
-/* Remove .spoiler-overlay styles and add these new styles */
 .filter-controls {
     position: absolute;
     right: 0;
