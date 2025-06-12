@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background-image: url(Background1.webp);
+    background-size: 100vw;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Add dark overlay */
+    background-blend-mode: darken;
+    /* Blend overlay with image */
+}
+
+header {
+    text-align: center;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.5)), url(Background1.webp);
+    background-size: cover;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 10px 20px;
+}
+
+.artworks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin: 20px 20px 40px 20px;
+    width: auto;
+    justify-items: center;
+    align-items: center;
+}
+
+/* Remove flexbox responsive rules for .artworks-grid */
+@media (max-width: 900px) {
+    /* .artworks-grid:has(> .artwork:nth-last-child(-n+2)) {
+        justify-content: flex-start;
+    } */
+}
+
+@media (max-width: 600px) {
+    /* .artworks-grid:has(> .artwork:nth-last-child(-n+1)) {
+        justify-content: flex-start;
+    } */
+}
+
+.artwork {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    /* Placeholder styling, replace with image/content as needed */
+}
+
+.artwork img,
+.artwork video {
+    max-width: 100%;
+    max-height: 100%;
+    filter: drop-shadow(0 10px 6px rgba(0, 0, 0, 0.9));
+}
+
+/* Remove .spoiler-overlay styles and add these new styles */
+.filter-controls {
+    position: absolute;
+    right: 0;
+    transform: translateY(calc(-100% - 20px));
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: fit-content;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-switch .slider {
+    width: 40px;
+    height: 20px;
+    background: #444;
+    border-radius: 10px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.toggle-switch .slider:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: white;
+    top: 2px;
+    left: 2px;
+    transition: 0.3s;
+}
+
+.toggle-switch input:checked+.slider {
+    background: #666;
+}
+
+.toggle-switch input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.artwork[data-content-type] {
+    display: none;
+}
+
+.artwork[data-content-type].visible {
+    display: flex;
+}
+
+/* Play button overlay for video/gif thumbnails */
+.artwork .play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.artwork .play-overlay svg {
+    width: 28px;
+    height: 28px;
+    fill: white;
+    display: block;
+}
+
+/* Hide native controls for grid videos */
+.artwork video {
+    pointer-events: none;
+    opacity: 0.7;
+    filter: grayscale(0.2);
+}
