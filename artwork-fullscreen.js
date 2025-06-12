@@ -105,7 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (video) {
             showFullscreenVideo(video.src, false);
         } else if (img && img.src.match(/\.gif($|\?)/i)) {
-            showFullscreenVideo(img.src, true);
+            // Replace "-thumbnail" with "" for full GIF path
+            const fullSrc = img.src.replace(/-thumbnail(?=\.gif($|\?))/i, '');
+            showFullscreenVideo(fullSrc, true);
         } else if (img) {
             // Replace "-thumbnail" before extension with empty string
             const fullSrc = img.src.replace(/-thumbnail(?=\.\w+$)/, '');
