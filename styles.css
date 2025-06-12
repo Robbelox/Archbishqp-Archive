@@ -14,6 +14,10 @@ body {
 }
 
 header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    filter: drop-shadow(0 10px 6px rgba(0, 0, 0, 0.9));
     text-align: center;
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.5)), url(Background1.webp);
     background-size: cover;
@@ -65,8 +69,9 @@ h1 {
 }
 
 .filter-controls {
-    position: absolute;
+    position: fixed;
     right: 0;
+    z-index: 1001;
     transform: translateY(calc(-100% - 20px));
     padding: 10px 20px;
     display: flex;
